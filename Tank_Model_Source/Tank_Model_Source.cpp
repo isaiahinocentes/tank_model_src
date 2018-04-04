@@ -12,7 +12,7 @@ int main()
 	//c_hA();
 	srand(time(NULL));
 	
-	readAndInit();
+	read_file_init();
 	init_Qs();
 	compute_h();
 	compute_H();

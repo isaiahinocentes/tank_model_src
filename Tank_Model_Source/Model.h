@@ -113,7 +113,6 @@ static void init_Qs() {
 
 	//Say QO = 100;
 	
-
 	/*
 	50
 	35
@@ -221,7 +220,7 @@ static void line(double db) {
 	cout << db << "\n";
 }
 static void line(string st, double db) {
-	cout << st << setprecision(3) << db << "\n";
+	cout << st << setprecision(11) << fixed << db << "\n";
 }
 static void line(string db) {
 	cout << db << "\n";

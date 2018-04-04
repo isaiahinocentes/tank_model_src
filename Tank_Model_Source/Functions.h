@@ -12,10 +12,15 @@
 using namespace std;
 
 
-static void readAndInit() {
+static void read_file_init() {
 	
 	ifstream in("C:\\Users\\isaia\\Desktop\\sample.txt");
-	
+	if (in.fail()) {
+		cout << "File Not Found";
+		system("Pause > 0");
+		exit(0);
+	}
+
 	int row = 0;
 	string str;
 	
@@ -45,5 +50,7 @@ static void readAndInit() {
 
 	cout << endl;
 	QO_ave = ave_QO();
+	cout << QO_ave << endl;
 	Prec_ave = ave_Prec();
+	cout << Prec_ave << endl;
 }
