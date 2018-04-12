@@ -1,6 +1,45 @@
 #pragma once
 #include <vector> //Vectors
 
+using namespace std;
+
+//Function Prototypes
+static double mean(vector<double>);
+static double sum(vector<double>);
+static double sqsum(vector<double>);
+static double stdev(vector<double>);
+static vector<double> operator-(vector<double>, double);
+static vector<double> operator*(vector<double>, vector<double>);
+
+//Correlation Function
+static double coeffcorrel(vector<double> QC, vector<double> QO)
+{
+	return sum((QC - mean(QC))*(QO - mean(QO))) / (QC.size()*stdev(QC)* stdev(QO));
+}
+
+//MAE
+static double mae(vector<double> QC, vector <double> QO) {
+	double suma;
+	int N = QC.size();
+	for (unsigned i = 0; i < N; i++) {
+		suma = abs(QC.at(i) - QO.at(i));
+	}
+	double MAE = suma / N;
+	return MAE;
+}
+
+//RMSE
+static double rmse(vector <double> QC, vector <double> QO) {
+	double suma;
+	int N = QC.size();
+	for (unsigned i = 0; i < N; i++) {
+		suma = pow(QC.at(i) - QO.at(i), 2);
+	}
+	double rmse = sqrt(suma / N);
+	return rmse;
+}
+
+//--These are all for Coeffcorrel
 static double mean(vector<double> a)
 {
 	return sum(a) / a.size();
@@ -46,31 +85,4 @@ static vector<double> operator*(vector<double> a, vector<double> b)
 	}
 	return retvect;
 }
-
-
-/* ---- || Objective Error Functions || ---- */
-//Correlation Function
-static double coeffcorrel(vector<double> QC, vector<double> QO)
-{
-	return sum((QC - mean(QC))*(QO - mean(QO))) / (QC.size()*stdev(QC)* stdev(QO));
-}
-//MAE
-static double mae(vector<double> QC, vector <double> QO) {
-	double suma;
-	int N = QC.size();
-	for (unsigned i = 0; i < N; i++) {
-		suma = abs(QC.at(i) - QO.at(i));
-	}
-	double MAE = suma / N;
-	return MAE;
-}
-//RMSE
-static double rmse(vector <double> QC, vector <double> QO) {
-	double suma;
-	int N = QC.size();
-	for (unsigned i = 0; i < N; i++) {
-		suma = pow(QC.at(i) - QO.at(i), 2);
-	}
-	double rmse = sqrt(suma / N);
-	return rmse;
-}
+//--

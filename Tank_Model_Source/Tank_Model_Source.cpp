@@ -9,14 +9,14 @@ using namespace std;
 
 int main()
 {
-	//c_hA();
 	srand(time(NULL));
 	
-	read_file_init();
+	read_file_init("C:\\Users\\isaia\\Desktop\\sample.txt");
+	
 	init_Qs();
-	compute_h();
-	compute_H();
-
+	COMPUTE();
+	COMPUTE_OEF(3);
+	
 	system("Pause>0");
     return 0;
 }

@@ -6,38 +6,38 @@
 #include <string.h>	//String Manipulation
 #include <vector>	//Vectors
 #include <iomanip>	//Showing Precisions
-#include "Model.h"	//	
-#include "Functions.h" //
+#include "Model.h"	//Tank Model Variables	
+#include "Compute.h" //Computations and Conversions
 
 using namespace std;
 
-
-static void read_file_init() {
-	
-	ifstream in("C:\\Users\\isaia\\Desktop\\sample.txt");
-	if (in.fail()) {
-		cout << "File Not Found";
-		system("Pause > 0");
-		exit(0);
+//Read file with the filepath and set Values for Tank Model Variables
+static void read_file_init(string path) {
+	ifstream file(path);
+	if (file.fail()) {
+		//Show dialog that file Can't be opened
 	}
 
 	int row = 0;
 	string str;
-	
-	in >> str;
+
+	//Set the Drainage Area to mm units
+	file >> str;
 	DA_km = atof(str.c_str());
 	DA_mm = km2mm(DA_km);
-	in >> str;
+
+
+	file >> str;
 	TA = atof(str.c_str());
-	
+
 	cout << "Drainage Area: " << DA_km << "\t|\t" << setprecision(5) << DA_mm << endl;
 	cout << "Tank Height: " << TA << endl << endl;;
-	
-	while (!in.eof()) {
-		
-		in >> str;
+
+	while (!file.eof()) {
+
+		file >> str;
 		vPrecipiation.push_back(atof(str.c_str()));
-		in >> str;
+		file >> str;
 		double qo = atof(str.c_str());
 		qo = lps2mmd(qo);
 		vQObserved.push_back(qo);

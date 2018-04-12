@@ -17,61 +17,72 @@ static void line(double);
 static void line(string, double);
 static void line(string);
 double n;
-//-------
 
+//
 static double QComp, QC_ave;
 static vector<double> vQCalculated;
 static double QObs, QO_ave;
 static vector<double> vQObserved;
 
+//RainFall mm/day
 static double RFall;
-static double DA_km;
-static double DA_mm; 
 
+//Drainage Area in km²
+static double DA_km;
+//Drainage Area in mm²
+static double DA_mm;
+
+//Tank Height
 static double TA;
 
+//Precipitaiton in mm/day
 static double Prec = 0, Prec_ave;
+//Precipitaiton in mm/day
 static vector<double> vPrecipiation;
+//Evaporation mm/day
 static double Evap = 0, Evap_ave;
+//Evaporation mm/day
 static vector<double> vEvaporation;
 
+//Discharges mm/day | Random/calibrated Values
 static double QA1, QA2, QA0;
 static double QB1, QB0;
 static double QC1, QC0;
 static double QD1;
 
+//Discharges on Tanks A-D mm³/day
 static double hA;
 static double hB;
 static double hC;
 static double hD;
 
+//Water Level on Tanks mm
 static double  HA;
 static double  HB;
 static double  HC;
 static double  HD;
 
-//------- Height of the Orifice in the Tanks -------
+//Height of the Orifice in the Tanks
 static double YA1 = 0; //The top level orifice.
 static double YA2;
 static double YB1;
 static double YC1;
 static double YD1;
 
-//------- QC, Qs Multipliers ---------------
+//Discharge(Qx) Multipliers | 0 or 1
 static double nA1, nA2, nB1, nC1, nD1;
-
 
 //Intialize the variables
 static void init() {
-	
+
 	Prec = pow(random(), 2); //The output value was to small.
 	line("Prec: ", Prec);
-	
+
 	Evap = 0;
-	
-	QA1 = fmod(random(), Prec); 
+
+	QA1 = fmod(random(), Prec);
 	line("QA1: ", QA1);
-	
+
 	QA2 = fmod(random(), QA1);
 	line("QA2: ", QA2);
 
@@ -95,13 +106,13 @@ static void init() {
 
 	YD1 = random();
 	line("YD1: ", YD1);
-	
+
 	YC1 = fmod(random(), YD1);
 	line("YC1: ", YC1);
-	
+
 	YB1 = fmod(random(), YC1);
 	line("YB1: ", YB1);
-	
+
 	YA2 = fmod(random(), YB1);
 	line("YA2: ", YA2);
 
@@ -112,23 +123,23 @@ static void init() {
 static void init_Qs() {
 
 	//Say QO = 100;
-	
+
 	/*
 	50
 	35
 	10
 	5
-	
+
 	1 QA1 90
 	2 QA2 80
 	3 QA0 70
-	
+
 	4 QB1 60
 	5 QB0 50
-	
+
 	6 QC1 40
 	7 QC0 30
-	
+
 	8 QD1 20
 	*/
 
@@ -208,13 +219,11 @@ static void showResults() {
 		QD1*nD1 << " = " << QComp;
 }
 
-
 //generate randome
 static double random() {
 	n = rand();
 	return n;
 }
-
 //Printing Functions
 static void line(double db) {
 	cout << db << "\n";
