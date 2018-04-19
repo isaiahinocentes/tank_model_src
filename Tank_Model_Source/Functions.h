@@ -23,23 +23,24 @@ static void read_file_init(string path) {
 
 	//Set the Drainage Area to mm units
 	file >> str;
-	DA_km = atof(str.c_str());
-	DA_mm = km2mm(DA_km);
+	DA_km2 = atof(str.c_str());
+	DA_mm2 = km22mm2(DA_km2);
 
 
 	file >> str;
-	TA = atof(str.c_str());
+	TankHeight = atof(str.c_str());
 
-	cout << "Drainage Area: " << DA_km << "\t|\t" << setprecision(5) << DA_mm << endl;
-	cout << "Tank Height: " << TA << endl << endl;;
+	cout << "Drainage Area: " << DA_km2 << "\t|\t" << setprecision(5) << DA_mm2 << endl;
+	cout << "Tank Height: " << TankHeight << endl << endl;;
 
 	while (!file.eof()) {
 
 		file >> str;
 		vPrecipiation.push_back(atof(str.c_str()));
+		
 		file >> str;
 		double qo = atof(str.c_str());
-		qo = lps2mmd(qo);
+		qo = lps2mmd(qo); //Convert the QO liters/sec to mm/day
 		vQObserved.push_back(qo);
 
 		cout << "Data[" << row << "]:" << endl

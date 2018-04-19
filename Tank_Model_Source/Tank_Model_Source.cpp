@@ -9,13 +9,17 @@ using namespace std;
 
 int main()
 {
-	srand(time(NULL));
-	
+	//Read file and Save Entries
 	read_file_init("C:\\Users\\isaia\\Desktop\\sample.txt");
 	
-	init_Qs();
+	//Initialize Qs
+	init_parameters();
+
+	//Do all Computation
 	COMPUTE();
-	COMPUTE_OEF(3);
+	
+	//Compute for OEF
+	//COMPUTE_OEF(5);
 	
 	system("Pause>0");
     return 0;

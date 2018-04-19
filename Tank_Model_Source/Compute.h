@@ -6,15 +6,33 @@
 
 //l/ps to mm/day
 static double lps2mmd(double lps) {
-	return (lps * 1000000) / 87400l;
+	lps = lps * 1000000 * 86400;
+	return lps / DA_mm2;
+}
+
+//precipiation mm/day to lps
+static double mmd2lps(double value) {
+	/*
+	ymm * xmm² 
+	= xymm³ 
+	= xy liters/1000000m³
+	== 
+	mm/day
+	mm³/day
+	liters/day
+	liters/hrs
+	liters/min
+	liters/sec
+	*/
+	double tmp = Prec * DA_mm2; //mm³
+	tmp = tmp / 1000000; //mm³ -> liters
+	tmp = tmp / 0;//day to secs
+
 }
 
 //km² to mm²
-static double km2mm(double km) {
+static double km22mm2(double km) {
 	return km * 1000000000000;
-}
-static double Qlps2Qmmd() {
-
 }
 
 //Get the average Q Observed
@@ -25,7 +43,6 @@ static double ave_QO() {
 		sum += QO;
 	}
 	double ave = sum / sizeof(vQObserved);
-	cout << "Average for QO: " << ave << endl;
 	return ave;
 }
 
@@ -37,7 +54,6 @@ static double ave_Prec() {
 		sum += p;
 	}
 	double ave = sum / sizeof(vPrecipiation);
-	cout << "Average for Precipitation: " << ave << endl;
 	return ave;
 }
 
@@ -49,95 +65,30 @@ static double c_hB(double qa0, double qb1, double qb0) {
 	return qa0 - qb1 - qb0;
 }
 static double c_hC(double qb0, double qc1, double qc0) {
-	return QB0 - QC1 - QC0;
+	return qb0 - qc1 - qc0;
 }
 static double c_hD(double qc0, double qd1) {
 	return qc0 - qd1;
 }
 
-//Compute HA, HB, HC, HD
-static double c_HA(double hA) {
-	cout << (hA/DA_mm)*10000000000000000 << "~~\n";
-	return hA / DA_mm;
-}
-static double c_HB(double hB) {
-	return hB / DA_mm;
-}
-static double c_HC(double hC) {
-	return hC / DA_mm;
-}
-static double c_HD(double hD) {
-	return hD / DA_mm;
-}
-
 //Compute for Discharge Multiplirs
-static double c_nA1() {
-	if (HA > YA1) {
-		return 1;
-	}
-	return 0;
+static double c_nA1(double hA) {
+	return hA > YA1 ? 1 : 0;
 }
-static double c_nA2() {
-	if (HA > YA2) {
-		return 1;
-	}
-	return 0;
+static double c_nA2(double hA) {
+	return hA > YA2 ? 1 : 0;
 }
-static double c_nB1() {
-	if (HB > YB1) {
-		return 1;
-	}
-	return 0;
+static double c_nB1(double hB) {
+	return hB > YB1 ? 1 : 0;
 }
-static double c_nC1() {
-	if (HC > YC1) {
-		return 1;
-	}
-	return 0;
+static double c_nC1(double hC) {
+	return hC > YC1 ? 1 : 0;
 }
-static double c_nD1() {
-	if (HD > YD1) {
-		return 1;
-	}
-	return 0;
+static double c_nD1(double hD) {
+	return hD > YD1 ? 1 : 0;
 }
 
-//Compute QC
-static double c_QC() {
-	
-	
-	return
-		(QA1 * nA1) +
-		(QA2 * nA2) +
-		(QB1 * nB1) +
-		(QC1 * nC1) +
-		(QD1 * nD1);
-}
-
-static void computeQCalculated() {
-	//Get values for h
-	//hA = c_hA();
-	//hB = c_hB();
-	//hC = c_hC();
-	//hD = c_hD();
-
-	//get the height of the tanks
-	//HA = c_HA();
-	//HB = c_HB();
-	//HC = c_HC();
-	//HD = c_HD();
-
-	//the Multipliers
-	//nA1 = c_nA1();
-	//nA2 = c_nA2();
-	//nB1 = c_nB1();
-	//nC1 = c_nC1();
-	//nD1 = c_nD1();
-
-	//Compute QC
-	QComp = c_QC();
-}
-
+//Compute for QC for each entry
 static void COMPUTE() {
 	int n = vQObserved.size();
 	for (int i = 0; i < n; i++)
@@ -153,22 +104,11 @@ static void COMPUTE() {
 			<< "hC:" << setprecision(10) << hC << endl
 			<< "hD:" << setprecision(10) << hD << endl << endl;
 		
-		HA = c_HA(hA);
-		HB = c_HB(hB);
-		HC = c_HC(hD);
-		HD = c_HD(hD);
-
-		cout << "Values for \"H - Water Levels\": " << endl
-			<< "HA:" << setprecision(10) << HA << endl
-			<< "HB:" << setprecision(10) << HB << endl
-			<< "HC:" << setprecision(10) << HC << endl
-			<< "HD:" << setprecision(10) << HD << endl << endl;
-		
-		nA1 = c_nA1();
-		nA2 = c_nA2();
-		nB1 = c_nB1();
-		nC1 = c_nC1();
-		nD1 = c_nD1();
+		nA1 = c_nA1(hA);
+		nA2 = c_nA2(hA);
+		nB1 = c_nB1(hB);
+		nC1 = c_nC1(hC);
+		nD1 = c_nD1(hD);
 
 		cout << "Multipliers [1/0]: " << endl
 			<< "A1:" << nA1 << endl
@@ -177,7 +117,8 @@ static void COMPUTE() {
 			<< "C1:" << nC1 << endl
 			<< "D1:" << nD1 << endl << endl;
 		
-		double tmp_QC = (QA1 * nA1) +
+		double tmp_QC = 
+			(QA1 * nA1) +
 			(QA2 * nA2) +
 			(QB1 * nB1) +
 			(QC1 * nC1) +
@@ -195,8 +136,9 @@ static void COMPUTE() {
 	}
 }
 
+//Add R² or R2 to OEF Functions
 static void COMPUTE_OEF(int oef) {
-	//correl
+	//correl = R
 	if (oef == 0) {
 		cout << endl << "OEF VALUES:" << endl;
 		cout << "CORREL: " << coeffcorrel(vQCalculated, vQObserved) << endl;
@@ -211,7 +153,7 @@ static void COMPUTE_OEF(int oef) {
 		cout << endl << "OEF VALUES:" << endl;
 		cout << "RMSE: " << rmse(vQCalculated, vQObserved) << endl;
 	}
-	else if (999) {
+	else if (oef == 999) {
 		vector<double> test;
 		for (int i = 0; i < 11; i++) {
 			test.push_back(i);
@@ -229,7 +171,7 @@ static void COMPUTE_OEF(int oef) {
 		cout << "MAE: " << mae(vQCalculated, vQObserved) << endl;
 		cout << "RMSE: " << rmse(vQCalculated, vQObserved) << endl;
 
-		cout << endl << "OEF VALUES:" << endl;
+		/*cout << endl << "OEF VALUES:" << endl;
 		cout << "CORREL: " << coeffcorrel(vQCalculated, vQCalculated) << endl;
 		cout << "MAE: " << mae(vQCalculated, vQCalculated) << endl;
 		cout << "RMSE: " << rmse(vQCalculated, vQCalculated) << endl;
@@ -237,7 +179,7 @@ static void COMPUTE_OEF(int oef) {
 		cout << endl << "OEF VALUES:" << endl;
 		cout << "CORREL: " << coeffcorrel(vQObserved, vQObserved) << endl;
 		cout << "MAE: " << mae(vQObserved, vQObserved) << endl;
-		cout << "RMSE: " << rmse(vQObserved, vQObserved) << endl;
+		cout << "RMSE: " << rmse(vQObserved, vQObserved) << endl;*/
 
 		
 
