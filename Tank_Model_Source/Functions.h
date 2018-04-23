@@ -30,8 +30,8 @@ static void read_file_init(string path) {
 	file >> str;
 	TankHeight = atof(str.c_str());
 
-	cout << "Drainage Area: " << DA_km2 << "\t|\t" << setprecision(5) << DA_mm2 << endl;
-	cout << "Tank Height: " << TankHeight << endl << endl;;
+	/*cout << "Drainage Area: " << DA_km2 << "\t|\t" << setprecision(5) << DA_mm2 << endl;
+	cout << "Tank Height: " << TankHeight << endl << endl;;*/
 
 	while (!file.eof()) {
 
@@ -43,15 +43,13 @@ static void read_file_init(string path) {
 		qo = lps2mmd(qo); //Convert the QO liters/sec to mm/day
 		vQObserved.push_back(qo);
 
-		cout << "Data[" << row << "]:" << endl
+		/*cout << "Data[" << row << "]:" << endl
 			<< "P: " << vPrecipiation.at(row) << endl
-			<< "QO: " << vQObserved.at(row) << endl;
+			<< "QO: " << vQObserved.at(row) << endl;*/
 		row++;
 	}
 
-	cout << endl;
 	QO_ave = ave_QO();
-	cout << QO_ave << endl;
 	Prec_ave = ave_Prec();
-	cout << Prec_ave << endl;
+	cout << "Done Reading File and Initilizations..." << endl << endl;
 }

@@ -17,7 +17,7 @@ static void init_QC(double);
 static void init_QD(double);
 //
 static double random_h(double);
-static double random_v(double);
+//static double random_h(double, double);
 static double random_vh(double);
 //
 static void line(double);
@@ -76,74 +76,83 @@ static double YC1;
 static double YD1;
 
 //Discharge(Qx) Multipliers | 0 or 1
-static double nA1, nA2, nB1, nC1, nD1;
+static int nA1, nA2, nB1, nC1, nD1;
 
 //Initialize Qs Parameters
 static void init_QA(double max) {
 	
-
 	QA1 = random_h(max);
 	QA2 = random_h(QA1);
 	QA0 = QA1 - QA2;
 	//QA0 = random_v(QA2);
 	
-	//Conditions
-	//Where Conditions
-	/*do {
-		if (QA1 <= QA2) {
-			cout << "QA2 is >= QA1" << endl;
-			QA2 = random_h(QA1); //Repeat for QA2
-		}
-		if (QA2 <= QA0) {
-			cout << "QA0 >= QA2";
-			QA0 = random_h(QA2); 
-		}
-		//If 40, 30, 11
-		//30+11 > 40, 11= 10
-		if (QA2 + QA0 > QA1) {
-			QA0 = QA1 - QA2;
-		}
-		if ((QA2+QA0) > QA1) {
-			break;
-		}
-	} while (false);*/
-
 	line("QA1: ", QA1);
 	line("QA2: ", QA2);
 	line("QA0: ", QA0);
+	//line("FInish Initializing QAs...");
 }
 static void init_QB(double max) {
 	QB1 = random_h(max);
 	QB0 = QA0 - QB1;
 	//QB0 = random_v(QB1);
 
-	line("QA0: ", QA0);
 	line("QB1: ", QB1);
 	line("QB0: ", QB0);
+	//line("FInish Initializing QBs...");
 }
 static void init_QC(double max) {
 	QC1 = random_h(max);
 	QC0 = QB0 - QC1;
 	//QC0 = random_h(QC1);
 
-	line("QB0: ", QB0);
 	line("QC1: ", QC1);
 	line("QC0: ", QC0);
+	//line("FInish Initializing QCs...");
 }
 static void init_QD(double max) {
 	QD1 = QC1 - QC0;
 	//QD1 = random_vh(max);
 
 	line("QD1: ", QD1);
+	//line("FInish Initializing QD...");
 }
+/*static void init_TH(double max){
+	//TankHeight = (double)rand();
+
+
+}*/
 static void init_parameters() {
+	
 	srand(time(NULL));
 
-	line("\nQO Ave: ", QO_ave);
+	line("QO Ave: ", QO_ave);
 	init_QA(QO_ave);
 	init_QB(QA0);
 	init_QC(QB0);
 	init_QD(QC0);
+	line("Done Initialize Q Values\n\n");
+
+	//init_TH();
+}
+
+//Showing Functions
+static void showQCs() {
+	cout << "________ QC Values: ______ " << endl;
+	int c = 0;
+	for each (double qc in vQCalculated)
+	{
+		cout << "[" << c << "]: " << qc << endl;
+		c++;
+	}
+}
+static void showQCvQO() {
+	cout << "________ QC vs QO Values: ______ " << endl;
+	int c = 0;
+	for(int i = 0; i < vQCalculated.size() && i < vQObserved.size(); i++)
+	{
+		cout << "[" << c << "]: " << vQCalculated.at(i) << "\t" << vQObserved.at(i) << endl;
+		c++;
+	}
 }
 
 //TO EDIT
@@ -183,20 +192,18 @@ static void showResults() {
 }
 
 //generate randome
-static double random_h(double max) {
-	n = max;
-	srand(max);
-	while (n >= max) {
-		n = rand();
-	}
-	return n;
-}
-static double random_v(double max) {
-	n = max;
-	while (n < max) {
-		n = rand();
-	}
-	return n;
+//static double random_h(double max) {
+//	n = max;
+//	srand(max);
+//	while (n >= max) {
+//		n = rand();
+//	}
+//	return n;
+//}
+double random_h(double fMax)
+{
+	double f = (double)rand() / RAND_MAX;
+	return 0 + f * (fMax - 0);
 }
 static double random_vh(double max) {
 	n = max + 1;

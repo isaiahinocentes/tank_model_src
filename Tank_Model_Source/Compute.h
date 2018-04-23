@@ -134,16 +134,20 @@ static void COMPUTE() {
 
 		vQCalculated.push_back(tmp_QC);
 	}
+
+	cout << "Finished Copmutations..." << endl << endl;
+	showQCs();
 }
 
 //Add R² or R2 to OEF Functions
 static void COMPUTE_OEF(int oef) {
+	showQCvQO();
 	//correl = R
 	if (oef == 0) {
 		cout << endl << "OEF VALUES:" << endl;
 		cout << "CORREL: " << coeffcorrel(vQCalculated, vQObserved) << endl;
 	}
-	//mae
+	//MAE
 	else if (oef == 1) {
 		cout << endl << "OEF VALUES:" << endl;
 		cout << "MAE: " << mae(vQCalculated, vQObserved) << endl;
@@ -180,8 +184,5 @@ static void COMPUTE_OEF(int oef) {
 		cout << "CORREL: " << coeffcorrel(vQObserved, vQObserved) << endl;
 		cout << "MAE: " << mae(vQObserved, vQObserved) << endl;
 		cout << "RMSE: " << rmse(vQObserved, vQObserved) << endl;*/
-
-		
-
 	}
 }
