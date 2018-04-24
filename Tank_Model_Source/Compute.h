@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Model.h" //Tank Model Variables
 #include "OEF.h"
 #include <iomanip> //For output formatting
@@ -13,24 +13,24 @@ static double lps2mmd(double lps) {
 //precipiation mm/day to lps
 static double mmd2lps(double value) {
 	/*
-	ymm * xmm² 
-	= xymm³ 
-	= xy liters/1000000m³
+	ymm * xmmÂ² 
+	= xymmÂ³ 
+	= xy liters/1000000mÂ³
 	== 
 	mm/day
-	mm³/day
+	mmÂ³/day
 	liters/day
 	liters/hrs
 	liters/min
 	liters/sec
 	*/
-	double tmp = Prec * DA_mm2; //mm³
-	tmp = tmp / 1000000; //mm³ -> liters
+	double tmp = Prec * DA_mm2; //mmÂ³
+	tmp = tmp / 1000000; //mmÂ³ -> liters
 	tmp = tmp / 0;//day to secs
 
 }
 
-//km² to mm²
+//kmÂ² to mmÂ²
 static double km22mm2(double km) {
 	return km * 1000000000000;
 }
@@ -136,12 +136,17 @@ static void COMPUTE() {
 	}
 
 	cout << "Finished Copmutations..." << endl << endl;
-	showQCs();
 }
 
-//Add R² or R2 to OEF Functions
+/*
+Range and Optimal Values
+R	|-1.0 to 1.0 | -1 (negative slope) or +1 (positive slope)
+R2	|0.0 to 1.0	 | 1.0
+MAE	|0.0 to inf	 | 0.0
+RSME|0.0 to inf	 | 0.0
+*/
+//Add RÂ² or R2 to OEF Functions
 static void COMPUTE_OEF(int oef) {
-	showQCvQO();
 	//correl = R
 	if (oef == 0) {
 		cout << endl << "OEF VALUES:" << endl;

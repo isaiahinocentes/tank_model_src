@@ -53,3 +53,51 @@ static void read_file_init(string path) {
 	Prec_ave = ave_Prec();
 	cout << "Done Reading File and Initilizations..." << endl << endl;
 }
+
+static void save_file() {
+	cout << endl << "_______ Saving File ________" << endl;
+	//Change this with current time
+	srand(time(NULL));
+
+	string filepath = "C:\\Users\\isaia\\Desktop\\model.txt";
+	//strcat(filepath, filepath);
+	//filepath += filepath + ".txt";
+
+	cout << "Filepath: " << filepath << endl;
+
+	ofstream file(filepath);
+
+	if (file.good()) {
+
+		cout << "File is Good, saving Values..." << endl;
+			
+		//Save Qs
+		file << "QA1:" << QA1 << endl;
+		file << "QA2:" << QA2 << endl;
+		file << "QA0:" << QA0 << endl;
+
+		file << "QB1:" << QB1 << endl;
+		file << "QB0:" << QB0 << endl;
+
+		file << "QC1:" << QC1 << endl;
+		file << "QC0:" << QC0 << endl;
+
+		file << "QD1:" << QD1 << endl;
+
+		//Save Tank Height
+		file << "TankHeight:" << TankHeight << endl;
+
+		//Save Ys = Height of Orifices
+		file << "YA1:" << YA1 << endl;
+		file << "YA2:" << YA2 << endl;
+		file << "YB1:" << YB1 << endl;
+		file << "YC1:" << YC1 << endl;
+		file << "YD1:" << YD1;
+
+		cout << "file Saved!.." << endl;
+	}
+	else {
+		cout << "File Can't be created..." << endl;
+	}
+
+}

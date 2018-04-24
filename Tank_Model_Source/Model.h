@@ -15,15 +15,11 @@ static void init_QA(double);
 static void init_QB(double);
 static void init_QC(double);
 static void init_QD(double);
-//
 static double random_h(double);
-//static double random_h(double, double);
 static double random_vh(double);
-//
 static void line(double);
 static void line(string, double);
 static void line(string);
-//
 double n;
 
 //Model Variables
@@ -31,50 +27,41 @@ static double QComp, QC_ave;
 static vector<double> vQCalculated;
 static double QObs, QO_ave;
 static vector<double> vQObserved;
-
 //RainFall mm/day
 static double RFall;
-
 //Drainage Area in km²
 static double DA_km2;
 //Drainage Area in mm²
 static double DA_mm2;
-
 //Tank Height in mm
 static double TankHeight;
-
 //Precipitaiton in mm/day
 static double Prec = 0, Prec_ave;
 static vector<double> vPrecipiation;
 //Evaporation mm/day
 static double Evap = 0, Evap_ave;
 static vector<double> vEvaporation;
-
 //Discharges mm/day | Random/calibrated Values
 static double QA1, QA2, QA0;
 static double QB1, QB0;
 static double QC1, QC0;
 static double QD1;
-
 //Discharges on Tanks A-D mm³/day
 static double hA;
 static double hB;
 static double hC;
 static double hD;
-
 //Water Level on Tanks mm
 static double  HA;
 static double  HB;
 static double  HC;
 static double  HD;
-
 //Height of the Orifice in the Tanks
 static double YA1 = 0; //The top level orifice.
 static double YA2;
 static double YB1;
 static double YC1;
 static double YD1;
-
 //Discharge(Qx) Multipliers | 0 or 1
 static int nA1, nA2, nB1, nC1, nD1;
 
@@ -136,6 +123,20 @@ static void init_parameters() {
 }
 
 //Showing Functions
+static void showQs() {
+	cout << "________ Qs Values: ______ " << endl;
+	cout << "[QA1]: " << QA1 << endl;
+	cout << "[QA2]: " << QA2 << endl;
+	cout << "[QA0]: " << QA0 << endl << endl;
+
+	cout << "[QB1]: " << QB1 << endl;
+	cout << "[QB0]: " << QB0 << endl << endl;
+
+	cout << "[QC1]: " << QC1 << endl;
+	cout << "[QC0]: " << QC0 << endl << endl;
+
+	cout << "[QD1]: " << QD1 << endl << endl;
+}
 static void showQCs() {
 	cout << "________ QC Values: ______ " << endl;
 	int c = 0;
