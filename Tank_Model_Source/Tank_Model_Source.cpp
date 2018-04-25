@@ -11,27 +11,6 @@ int main()
 {
 	
 
-	//Read file and Save Entries
-	cout << "_______Read file and Save Entries_______" << endl;
-	read_file_init("C:\\Users\\isaia\\Desktop\\sample.txt");
-	
-	//Initialize Qs
-	cout << "_______Initialize Qs and Tank Height..._______" << endl;
-	init_parameters();
-
-	//Do all Computation
-	cout << "_______Doing all Computation...________" << endl << endl;
-	COMPUTE();
-	showQs();
-	showQCs();
-	
-	//Compute for OEF
-	cout << "_______Computing OEFs...________" << endl << endl;
-	showQCvQO();
-	COMPUTE_OEF(5);
-	
-	save_file();
-
 	system("Pause>0");
     return 0;
 }

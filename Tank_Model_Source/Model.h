@@ -103,11 +103,13 @@ static void init_QD(double max) {
 	line("QD1: ", QD1);
 	//line("FInish Initializing QD...");
 }
-/*static void init_TH(double max){
-	//TankHeight = (double)rand();
+static void init_TH(double max){
+	YA1 = 0;
+	YA2 = QA2 * 0.9;
+	YB1 = QB1 * 0.9;
 
 
-}*/
+}
 static void init_parameters() {
 	
 	srand(time(NULL));
