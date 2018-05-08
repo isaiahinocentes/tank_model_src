@@ -70,7 +70,9 @@ static void save_file() {
 	if (file.good()) {
 
 		cout << "File is Good, saving Values..." << endl;
-			
+		
+		file << setprecision(10);
+
 		//Save Qs
 		file << "QA1:" << QA1 << endl;
 		file << "QA2:" << QA2 << endl;

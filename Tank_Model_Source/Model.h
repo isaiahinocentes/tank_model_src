@@ -65,6 +65,22 @@ static double YD1;
 //Discharge(Qx) Multipliers | 0 or 1
 static int nA1, nA2, nB1, nC1, nD1;
 
+//OEF FINAL VALUES
+#define MIN_R = -1.0
+#define MAX_R = 1.0
+static double R = 999;
+#define MIN_R2 = 0.0
+#define MAX_R2 = 1.0
+static double R2 = 999;
+#define MIN_MAE = 0.0
+//#define MAX_MAE = +infinity
+static double MAE = 999;
+#define MIN_RMSE = 0.0
+//#define MAX_RMSE = +infinity
+static double RMSE = 999;
+
+static int ACCEPTED = 0;
+
 //Initialize Qs Parameters
 static void init_QA(double max) {
 	
@@ -103,28 +119,50 @@ static void init_QD(double max) {
 	line("QD1: ", QD1);
 	//line("FInish Initializing QD...");
 }
-static void init_TH(double max){
+static void init_TH(){
+	
 	YA1 = 0;
+	
 	YA2 = QA2 * 0.9;
+	cout << QA2 << " * 0.9 = " << (QA2 * 0.9) << endl;
+	
 	YB1 = QB1 * 0.9;
+	cout << QB1 << " * 0.9 = " << (QB1 * 0.9) << endl;
+	
+	YC1 = QC1 * 0.9;
+	cout << QC1 << " * 0.9 = " << (QC1 * 0.9) << endl;
+	
+	YD1 = QD1 * 0.9;
+	cout << QD1 << " * 0.9 = " << (QD1 * 0.9) << endl;
 
-
+	TankHeight = YA1 + YA2 +
+		YB1 + YC1 + YD1;
 }
 static void init_parameters() {
 	
+	cout << "_______Initialize Qs and Tank Height..._______" << endl;
 	srand(time(NULL));
-
 	line("QO Ave: ", QO_ave);
 	init_QA(QO_ave);
 	init_QB(QA0);
 	init_QC(QB0);
 	init_QD(QC0);
 	line("Done Initialize Q Values\n\n");
-
-	//init_TH();
+	//
+	init_TH();
+	line("Done Initialize Height Values\n\n");
 }
 
 //Showing Functions
+static void showHeights() {
+	cout << "________ Height Values: ______ " << endl;
+	cout << "Tank Height: " << TankHeight << endl;
+	cout << "[YA1]: " << YA1 << endl;
+	cout << "[YA2]: " << YA2 << endl;
+	cout << "[YB1]: " << YB1 << endl;
+	cout << "[YC1]: " << YC1 << endl;
+	cout << "[YD1]: " << YD1 << endl << endl;
+}
 static void showQs() {
 	cout << "________ Qs Values: ______ " << endl;
 	cout << "[QA1]: " << QA1 << endl;

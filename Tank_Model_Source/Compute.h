@@ -40,6 +40,7 @@ static double ave_QO() {
 	double sum = 0;
 	for each (double QO in vQObserved)
 	{
+		cout << "QO: " << QO << endl;
 		sum += QO;
 	}
 	double ave = sum / sizeof(vQObserved);
@@ -138,6 +139,7 @@ static void COMPUTE() {
 	cout << "Finished Copmutations..." << endl << endl;
 }
 
+//OEF ACCEPTABLE CONDITIONS
 /*
 Range and Optimal Values
 R	|-1.0 to 1.0 | -1 (negative slope) or +1 (positive slope)
@@ -151,6 +153,13 @@ static void COMPUTE_OEF(int oef) {
 	if (oef == 0) {
 		cout << endl << "OEF VALUES:" << endl;
 		cout << "CORREL: " << coeffcorrel(vQCalculated, vQObserved) << endl;
+		//accept if R is from 0.9 - 1.1
+		if ((R >= 0.90 && R <= 1.11)) {
+			ACCEPTED = 1;
+		}
+		else {
+			ACCEPTED = 0;
+		}
 	}
 	//MAE
 	else if (oef == 1) {
