@@ -152,6 +152,21 @@ static void init_parameters() {
 	init_TH();
 	line("Done Initialize Height Values\n\n");
 }
+static void init_parameters(double max) {
+
+	cout << "_______Initialize Qs and Tank Height..._______" << endl;
+	line(max);
+
+	init_QA(max);
+	init_QB(QA0);
+	init_QC(QB0);
+	init_QD(QC0);
+	line("Done Initialize Q Values\n\n");
+	//
+	init_TH();
+	line("Done Initialize Height Values\n\n");
+}
+
 
 //Showing Functions
 static void showHeights() {

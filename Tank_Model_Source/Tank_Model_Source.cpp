@@ -16,8 +16,8 @@ int main()
 	do {
 
 		//Initialize Qs
-		cout << "_______Initialize Qs and Tank Height..._______" << endl;
-		init_parameters();
+		//cout << "_______Initialize Qs and Tank Height..._______" << endl;
+		//init_parameters();
 
 		//Do all Computation
 		cout << "_______Doing all Computation...________" << endl << endl;

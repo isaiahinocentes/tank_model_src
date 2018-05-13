@@ -94,7 +94,9 @@ static void COMPUTE() {
 	int n = vQObserved.size();
 	for (int i = 0; i < n; i++)
 	{
-		hA = c_hA(vQObserved.at(i), Evap, QA1, QA2, QA0); //The first parameter should be Precipitation.at(i)
+		init_parameters(vQObserved.at(i));
+
+		hA = c_hA(vPrecipiation.at(i), Evap, QA1, QA2, QA0); //The first parameter should be Precipitation.at(i)
 		hB = c_hB(QA0, QB1, QB0);
 		hC = c_hC(QB0, QC1, QC0);
 		hD = c_hD(QC0, QD1);
