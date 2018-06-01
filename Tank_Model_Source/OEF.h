@@ -1,8 +1,5 @@
 #pragma once
-#include <vector> //Vectors
-#include "Model.h"
-
-using namespace std;
+#include <vector>
 
 //Function Prototypes
 static double mean(vector<double>);
@@ -12,46 +9,39 @@ static double stdev(vector<double>);
 static vector<double> operator-(vector<double>, double);
 static vector<double> operator*(vector<double>, vector<double>);
 
-//R = Correlation Function
-static double coeffcorrel(vector<double> QC, vector<double> QO)
-{
-	double r = sum((QC - mean(QC))*(QO - mean(QO))) / (QC.size()*stdev(QC)* stdev(QO));
-	R = r;
-	return r;
-}
+//Add R2
 
-//R2 = Correlation Function
-static double coeffcorrel2(vector<double> QC, vector<double> QO)
+//Correlation Function
+static double COEFFCORREL(vector<double> QC, vector<double> QO)
 {
-	double r2 = sum((QC - mean(QC))*(QO - mean(QO))) / (QC.size()*stdev(QC)* stdev(QO));
-	r2 = pow(r2, 2);
-	R2 = r2;
-	return r2;
+	return sum((QC - mean(QC))*(QO - mean(QO))) / (QC.size()*stdev(QC)* stdev(QO));
 }
 
 //MAE
-static double mae(vector<double> QC, vector <double> QO) {
+static double MAE(vector<double> QC, vector <double> QO) {
 	double suma;
 	int N = QC.size();
 	for (unsigned i = 0; i < N; i++) {
 		suma = abs(QC.at(i) - QO.at(i));
 	}
-	double mae = suma / N;
-	MAE = mae;
-	return mae;
+	double MAE = suma / N;
+	return MAE;
 }
 
 //RMSE
-static double rmse(vector <double> QC, vector <double> QO) {
+static double RMSE(vector <double> QC, vector <double> QO) {
 	double suma;
 	int N = QC.size();
 	for (unsigned i = 0; i < N; i++) {
 		suma = pow(QC.at(i) - QO.at(i), 2);
 	}
 	double rmse = sqrt(suma / N);
-	RMSE = rmse;
 	return rmse;
 }
+
+
+
+
 
 //--These are all for Coeffcorrel
 static double mean(vector<double> a)
